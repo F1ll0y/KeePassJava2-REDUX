@@ -1,6 +1,7 @@
 package org.linguafranca.pwdb.keepasshttp;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -170,12 +171,18 @@ public class Message {
             this.StringFields = StringFields;
         }
 
+        public ResponseEntry(char[] name, char[] login, char[] password, String uuid) {
+            this.Name = new String(name);
+            this.Login = new String(login);
+            this.Password = new String(password);
+            this.Uuid = uuid;
+        }
+
         public String Login;
         public String Password;
         public String Uuid;
         public String Name;
         public List<ResponseStringField> StringFields = null;
-
     }
 
     public static class ResponseStringField {

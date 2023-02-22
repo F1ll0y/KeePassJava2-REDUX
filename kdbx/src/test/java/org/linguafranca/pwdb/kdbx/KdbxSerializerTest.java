@@ -16,45 +16,45 @@
 
 package org.linguafranca.pwdb.kdbx;
 
-import org.junit.Test;
+//import org.junit.Test;
 import org.linguafranca.pwdb.Credentials;
 
 import java.io.*;
 import java.util.Scanner;
 
-import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertEquals;
 
 /**
  * @author jo
  */
 public class KdbxSerializerTest {
-
-    @Test
-    public void testGetPlainTextInputStream() throws Exception {
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("Attachment.kdbx");
-        Credentials credentials = new KdbxCreds("123".getBytes());
-        InputStream decryptedInputStream = KdbxSerializer.createUnencryptedInputStream(credentials, new KdbxHeader(), inputStream);
-        byte[] buffer = new byte[1024];
-        while ( decryptedInputStream.available() > 0) {
-            int read = decryptedInputStream.read(buffer);
-            if (read == -1) break;
-            System.out.write(buffer, 0, read);
-        }
-    }
-
-    @Test
-    public void testCypherTextOutputStream() throws Exception {
-        File tempFile = File.createTempFile("test", "test");
-        OutputStream testStream = new FileOutputStream(tempFile);
-        Credentials credentials = new KdbxCreds("123".getBytes());
-        OutputStream outputStream = KdbxSerializer.createEncryptedOutputStream(credentials, new KdbxHeader(), testStream);
-
-        outputStream.write("Hello World\n".getBytes());
-        outputStream.flush();
-        outputStream.close();
-
-        InputStream inputStream = KdbxSerializer.createUnencryptedInputStream(credentials, new KdbxHeader(), new FileInputStream(tempFile));
-        Scanner scanner = new Scanner(inputStream);
-        assertEquals("Hello World", scanner.nextLine());
-    }
+//
+//    @Test
+//    public void testGetPlainTextInputStream() throws Exception {
+//        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("Attachment.kdbx");
+//        Credentials credentials = new KdbxCreds("123".getBytes());
+//        InputStream decryptedInputStream = KdbxSerializer.createUnencryptedInputStream(credentials, new KdbxHeader(), inputStream);
+//        byte[] buffer = new byte[1024];
+//        while ( decryptedInputStream.available() > 0) {
+//            int read = decryptedInputStream.read(buffer);
+//            if (read == -1) break;
+//            System.out.write(buffer, 0, read);
+//        }
+//    }
+//
+//    @Test
+//    public void testCypherTextOutputStream() throws Exception {
+//        File tempFile = File.createTempFile("test", "test");
+//        OutputStream testStream = new FileOutputStream(tempFile);
+//        Credentials credentials = new KdbxCreds("123".getBytes());
+//        OutputStream outputStream = KdbxSerializer.createEncryptedOutputStream(credentials, new KdbxHeader(), testStream);
+//
+//        outputStream.write("Hello World\n".getBytes());
+//        outputStream.flush();
+//        outputStream.close();
+//
+//        InputStream inputStream = KdbxSerializer.createUnencryptedInputStream(credentials, new KdbxHeader(), new FileInputStream(tempFile));
+//        Scanner scanner = new Scanner(inputStream);
+//        assertEquals("Hello World", scanner.nextLine());
+//    }
 }

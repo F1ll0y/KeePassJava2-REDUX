@@ -16,7 +16,7 @@
 
 package org.linguafranca.pwdb.kdbx;
 
-import org.junit.BeforeClass;
+//import org.junit.BeforeClass;
 import org.linguafranca.pwdb.*;
 import org.linguafranca.pwdb.kdb.KdbCredentials;
 import org.linguafranca.pwdb.kdb.KdbDatabase;
@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -40,10 +41,10 @@ public abstract class QuickStart<D extends Database<D, G, E, I>, G extends Group
     public abstract D getDatabase();
     public abstract D loadDatabase(Credentials creds, InputStream inputStream);
 
-    @BeforeClass
-    public static void ensureOutputDir() throws IOException {
-        Files.createDirectories(Paths.get("testOutput"));
-    }
+//    @BeforeClass
+//    public static void ensureOutputDir() throws IOException {
+//        Files.createDirectories(Paths.get("testOutput"));
+//    }
 
     /**
      * Load KDBX
@@ -102,7 +103,7 @@ public abstract class QuickStart<D extends Database<D, G, E, I>, G extends Group
         List<? extends E> entries = database.findEntries(new Entry.Matcher() {
             @Override
             public boolean matches(Entry entry) {
-                return entry.getProperty(Entry.STANDARD_PROPERTY_NAME_TITLE).toLowerCase().contains("findme!");
+                return new String(entry.getProperty(Entry.STANDARD_PROPERTY_NAME_TITLE)).toLowerCase().contains("findme!");
             }
         });
         // create a new group using DB factory method

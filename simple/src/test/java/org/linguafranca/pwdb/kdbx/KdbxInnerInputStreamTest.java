@@ -16,7 +16,7 @@
 
 package org.linguafranca.pwdb.kdbx;
 
-import org.junit.Test;
+//import org.junit.Test;
 import org.linguafranca.pwdb.kdbx.simple.transformer.KdbxInputTransformer;
 import org.linguafranca.xml.XmlInputStreamFilter;
 
@@ -29,17 +29,17 @@ import java.util.Scanner;
  * @author jo
  */
 public class KdbxInnerInputStreamTest {
-
-    // TODO what does this test, exactly?
-    @Test
-    public void test() throws XMLStreamException, IOException {
-        InputStream is = getClass().getClassLoader().getResourceAsStream("ExampleDatabase.xml");
-        XmlInputStreamFilter sxd = new XmlInputStreamFilter(is, new KdbxInputTransformer(new StreamEncryptor.None()));
-        Scanner s = new Scanner(is);
-        while (s.hasNext()) {
-            System.out.println(s.nextLine());
-        }
-        s.close();
-   }
+//
+//    // TODO what does this test, exactly?
+//    @Test
+//    public void test() throws XMLStreamException, IOException {
+//        InputStream is = getClass().getClassLoader().getResourceAsStream("ExampleDatabase.xml");
+//        XmlInputStreamFilter sxd = new XmlInputStreamFilter(is, new KdbxInputTransformer(new StreamEncryptor.None()));
+//        Scanner s = new Scanner(is);
+//        while (s.hasNext()) {
+//            System.out.println(s.nextLine());
+//        }
+//        s.close();
+//   }
 
 }

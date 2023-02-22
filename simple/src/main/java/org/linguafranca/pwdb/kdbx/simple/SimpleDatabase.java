@@ -36,9 +36,8 @@ import org.simpleframework.xml.convert.RegistryStrategy;
 import org.simpleframework.xml.core.Persister;
 import org.simpleframework.xml.strategy.Strategy;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
+import java.nio.file.Files;
 import java.util.*;
 
 /**
@@ -47,7 +46,7 @@ import java.util.*;
  * @author jo
  */
 @SuppressWarnings("WeakerAccess")
-public class SimpleDatabase extends AbstractDatabase<SimpleDatabase, SimpleGroup, SimpleEntry, SimpleIcon>{
+public class SimpleDatabase extends AbstractDatabase<SimpleDatabase, SimpleGroup, SimpleEntry, SimpleIcon> {
 
     KeePassFile keePassFile;
 
@@ -65,9 +64,10 @@ public class SimpleDatabase extends AbstractDatabase<SimpleDatabase, SimpleGroup
 
     /**
      * Create a database instance from a keepass file
+     *
      * @param keePassFile the instance to initialise from
      */
-    protected SimpleDatabase (KeePassFile keePassFile) {
+    protected SimpleDatabase(KeePassFile keePassFile) {
         this.keePassFile = keePassFile;
         this.keePassFile.root.group.database = this;
         fixUp(this.keePassFile.root.group);
@@ -166,7 +166,7 @@ public class SimpleDatabase extends AbstractDatabase<SimpleDatabase, SimpleGroup
      * @throws Exception on load failure
      */
     public static SimpleDatabase loadXml(InputStream inputStream) throws Exception {
-        KeePassFile result =  getSerializer().read(KeePassFile.class, inputStream);
+        KeePassFile result = getSerializer().read(KeePassFile.class, inputStream);
         result.root.group.uuid = UUID.randomUUID();
         return new SimpleDatabase(result);
     }
@@ -218,12 +218,12 @@ public class SimpleDatabase extends AbstractDatabase<SimpleDatabase, SimpleGroup
         newBin.setId(index);
         newBin.setValue(Helpers.encodeBase64Content(bytes, true));
         newBin.setCompressed(true);
+
         if (keePassFile.getBinaries() == null) {
             keePassFile.createBinaries();
         }
         keePassFile.getBinaries().add(newBin);
     }
-
 
     /**
      * Save as plaintext XML
@@ -283,6 +283,7 @@ public class SimpleDatabase extends AbstractDatabase<SimpleDatabase, SimpleGroup
 
     /**
      * Utility to get a simple framework persister
+     *
      * @return a persister
      * @throws Exception when things get tough
      */
@@ -299,13 +300,13 @@ public class SimpleDatabase extends AbstractDatabase<SimpleDatabase, SimpleGroup
      *
      * @param parent the group to start from
      */
-    private static void fixUp(SimpleGroup parent){
-        for (SimpleGroup group: parent.group) {
+    private static void fixUp(SimpleGroup parent) {
+        for (SimpleGroup group : parent.group) {
             group.parent = parent;
             group.database = parent.database;
             fixUp(group);
         }
-        for (SimpleEntry entry: parent.entry) {
+        for (SimpleEntry entry : parent.entry) {
             entry.database = parent.database;
             entry.parent = parent;
         }
@@ -316,11 +317,11 @@ public class SimpleDatabase extends AbstractDatabase<SimpleDatabase, SimpleGroup
      *
      * @param parent the group to start from
      */
-    private static void prepareForSave(SimpleGroup parent){
-        for (SimpleGroup group: parent.group) {
+    private static void prepareForSave(SimpleGroup parent) {
+        for (SimpleGroup group : parent.group) {
             prepareForSave(group);
         }
-        for (SimpleEntry entry: parent.entry) {
+        for (SimpleEntry entry : parent.entry) {
             for (EntryClasses.StringProperty property : entry.string) {
                 boolean shouldProtect = parent.database.shouldProtect(property.getKey());
                 property.getValue().setProtected(shouldProtect);

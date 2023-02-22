@@ -72,10 +72,10 @@ public class JaxbEntry extends AbstractEntry<JaxbDatabase, JaxbGroup, JaxbEntry,
     }
 
     @Override
-    public String getProperty(String name) {
+    public char[] getProperty(String name) {
         for (StringField field: delegate.getString()){
             if (field.getKey().equals(name)){
-                return field.getValue().getValue();
+                return field.getValue().getValue().toCharArray();
             }
         }
         return null;

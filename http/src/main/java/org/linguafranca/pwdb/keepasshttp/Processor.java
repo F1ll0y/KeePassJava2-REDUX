@@ -53,7 +53,7 @@ class Processor {
             List<Entry> entries = database.findEntries(new Entry.Matcher() {
                 @Override
                 public boolean matches(Entry entry) {
-                    return entry.getUrl().startsWith(r.Url) || r.Url.startsWith(entry.getUrl());
+                    return new String(entry.getUrl()).startsWith(r.Url) || r.Url.startsWith(Arrays.toString(entry.getUrl()));
                 }
             });
 

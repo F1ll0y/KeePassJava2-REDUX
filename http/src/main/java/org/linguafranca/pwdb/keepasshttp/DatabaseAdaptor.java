@@ -1,11 +1,11 @@
 package org.linguafranca.pwdb.keepasshttp;
 
 import org.apache.commons.codec.binary.Hex;
+import org.bouncycastle.crypto.digests.SHA1Digest;
 import org.linguafranca.pwdb.Credentials;
 import org.linguafranca.pwdb.Database;
 import org.linguafranca.pwdb.kdbx.Helpers;
 import org.linguafranca.pwdb.kdbx.simple.SimpleDatabase;
-import org.spongycastle.crypto.digests.SHA1Digest;
 
 import java.io.*;
 

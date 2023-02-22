@@ -25,12 +25,12 @@ import org.simpleframework.xml.stream.OutputNode;
 /**
  * @author jo
  */
-public class Base64ByteArrayConverter implements Converter<KeePassFile.ByteArray>{
+public class Base64ByteArrayConverter implements Converter<KeePassFile.ByteArray> {
     @Override
     public KeePassFile.ByteArray read(InputNode inputNode) throws Exception {
         String input = inputNode.getValue();
-        byte[] value = input == null? new byte[0] : input.getBytes();
-        return new KeePassFile.ByteArray(Helpers.decodeBase64Content(value, false));
+        byte[] value = input == null ? new byte[0] : input.getBytes();
+        return new KeePassFile.ByteArray(value.length == 0 ? value : Helpers.decodeBase64Content(value, false));
     }
 
     @Override

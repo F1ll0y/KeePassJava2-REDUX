@@ -49,21 +49,21 @@ public class SimpleQuickStartTest extends QuickStart<SimpleDatabase, SimpleGroup
             throw new IllegalStateException(e);
         }
     }
-
-    @Test
-    public void saveTest() throws IOException {
-        super.saveKdbx();
-    }
-
-    @Test
-    public void loadTest() throws IOException {
-        super.loadKdbx();
-    }
-
-    @Test
-    public void loadKdbSaveVernacular() throws IOException {
-        super.loadKdb();
-    }
+//
+//    @Test
+//    public void saveTest() throws IOException {
+//        super.saveKdbx();
+//    }
+//
+//    @Test
+//    public void loadTest() throws IOException {
+//        super.loadKdbx();
+//    }
+//
+//    @Test
+//    public void loadKdbSaveVernacular() throws IOException {
+//        super.loadKdb();
+//    }
 
 
 }

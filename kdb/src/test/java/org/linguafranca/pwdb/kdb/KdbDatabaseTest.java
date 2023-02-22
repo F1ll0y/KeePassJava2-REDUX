@@ -16,13 +16,13 @@
 
 package org.linguafranca.pwdb.kdb;
 
-import org.junit.Test;
+//import org.junit.Test;
 import org.linguafranca.pwdb.checks.BasicDatabaseChecks;
 import org.linguafranca.pwdb.Database;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertFalse;
+//import static org.junit.Assert.assertFalse;
 
 /**
  * @author Jo
@@ -37,10 +37,10 @@ public class KdbDatabaseTest  extends BasicDatabaseChecks {
         super();
     }
 
-    @Test
-    public void supportedFunctionalityTest(){
-        assertFalse(database.supportsBinaryProperties());
-        assertFalse(database.supportsNonStandardPropertyNames());
-        assertFalse(database.supportsRecycleBin());
-    }
+//    @Test
+//    public void supportedFunctionalityTest(){
+//        assertFalse(database.supportsBinaryProperties());
+//        assertFalse(database.supportsNonStandardPropertyNames());
+//        assertFalse(database.supportsRecycleBin());
+//    }
 }

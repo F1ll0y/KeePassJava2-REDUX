@@ -26,6 +26,7 @@ import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.XMLEvent;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static javax.xml.stream.XMLStreamConstants.CHARACTERS;
@@ -52,19 +53,35 @@ public class KdbxOutputTransformer implements XmlEventTransformer {
     public XMLEvent transform(XMLEvent event) {
         switch (event.getEventType()) {
             case START_ELEMENT: {
-                Attribute attribute = event.asStartElement().getAttributeByName(new QName("Protected"));
-                if (attribute != null) {
-                    encryptContent = Helpers.toBoolean(attribute.getValue());
-                    // this is a workaround for Simple XML not calling converter on attributes
-                    List<Attribute> attributes = new ArrayList<>();
-                    if (attribute.getValue().toLowerCase().equals("true")) {
-                        attributes.add(eventFactory.createAttribute("Protected", "True"));
+                Iterator<Attribute> itr = event.asStartElement().getAttributes();
+
+                List<Attribute> attributes = new ArrayList<>();
+                List<Attribute> newAttributes = new ArrayList<>();
+                while(itr.hasNext()) {
+                    Attribute attribute = itr.next();
+
+                    if(attribute.getName().getLocalPart().equals("Protected")){
+                        encryptContent = Helpers.toBoolean(attribute.getValue());
+                        if (attribute.getValue().equalsIgnoreCase("true")) {
+                            newAttributes.add(eventFactory.createAttribute("Protected", "True"));
+                        }
+
+                    }else if(attribute.getName().getLocalPart().equals("Compressed")){
+                        boolean boolValue = Helpers.toBoolean(attribute.getValue());
+                        if (boolValue) {
+                            newAttributes.add(eventFactory.createAttribute("Compressed", "True"));
+                        }else{
+                            newAttributes.add(eventFactory.createAttribute("Compressed", "False"));
+                        }
+
+                    }else{
+                        newAttributes.add(attribute);
                     }
-                    event = eventFactory.createStartElement(
-                            event.asStartElement().getName(),
-                            attributes.iterator(),
-                            null);
                 }
+                event = eventFactory.createStartElement(
+                        event.asStartElement().getName(),
+                        newAttributes.iterator(),
+                        null);
                 break;
             }
             case CHARACTERS: {

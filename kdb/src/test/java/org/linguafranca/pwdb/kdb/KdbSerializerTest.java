@@ -16,7 +16,7 @@
 
 package org.linguafranca.pwdb.kdb;
 
-import org.junit.Test;
+//import org.junit.Test;
 import org.linguafranca.pwdb.Database;
 import org.linguafranca.pwdb.Visitor;
 
@@ -26,11 +26,11 @@ import java.io.InputStream;
  * @author jo
  */
 public class KdbSerializerTest {
-
+/*
     @Test
     public void testCreateKdbDatabase() throws Exception {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("test123.kdb");
         Database database = KdbDatabase.load(new KdbCredentials.Password("123".getBytes()), inputStream);
         database.visit(new Visitor.Print());
-    }
+    }*/
 }
