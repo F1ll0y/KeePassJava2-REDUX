@@ -125,8 +125,8 @@ public class KeePassFile {
         protected int historyMaxSize;
         @ElementList(name = "Binaries", required = false)
         protected List<Binary> binaries;
-        @Element(name = "CustomData", required = false)
-        protected KeePassFile.CustomData customData;
+        @ElementList(name = "CustomData", required = false)
+        protected List<CustomDataItem> customData;
 
         /* version 4 */
 
@@ -244,8 +244,16 @@ public class KeePassFile {
         }
     }
 
-    public static class CustomData {
-        protected List<Object> any;
+    @org.simpleframework.xml.Root(name = "Item")
+    public static class CustomDataItem {
+        @Element(name = "Key", type=String.class)
+        protected String key;
+
+        @Element(name = "Value", type=String.class)
+        protected String value;
+
+        @Element(name = "LastModificationTime", type=String.class, required = false)
+        protected String lastModificationTime;
     }
 
     @org.simpleframework.xml.Root(name = "DeletedObject")

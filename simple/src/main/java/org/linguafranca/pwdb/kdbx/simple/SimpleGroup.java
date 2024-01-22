@@ -48,6 +48,10 @@ public class SimpleGroup extends org.linguafranca.pwdb.base.AbstractGroup<Simple
     protected String notes;
     @Element(name = "IconID")
     protected int iconID;
+
+    @Element(name = "CustomIconUUID", type = UUID.class, required = false)
+    @Convert(UuidConverter.class)
+    protected UUID customIconUUID;
     @Element(name = "Times")
     protected Times times;
     @Element(name = "IsExpanded", required = false, type = Boolean.class)

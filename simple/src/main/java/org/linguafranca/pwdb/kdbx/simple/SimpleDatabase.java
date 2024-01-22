@@ -193,7 +193,7 @@ public class SimpleDatabase extends AbstractDatabase<SimpleDatabase, SimpleGroup
         // read the now entirely decrypted stream into database
         KeePassFile result = getSerializer().read(KeePassFile.class, plainTextXmlStream);
 
-        if (kdbxHeader.getVersion() == 3 && !Arrays.equals(result.meta.headerHash.getContent(), kdbxHeader.getHeaderHash())) {
+        if (kdbxHeader.getVersion() == 3 && result.meta.headerHash != null && !Arrays.equals(result.meta.headerHash.getContent(), kdbxHeader.getHeaderHash())) {
             throw new IllegalStateException("Header Hash Mismatch");
         }
 
@@ -250,8 +250,10 @@ public class SimpleDatabase extends AbstractDatabase<SimpleDatabase, SimpleGroup
             KdbxHeader kdbxHeader = new KdbxHeader();
             OutputStream kdbxInnerStream = KdbxSerializer.createEncryptedOutputStream(credentials, kdbxHeader, outputStream);
 
-            // the database contains the hash of the headers
-            keePassFile.meta.headerHash.setContent(kdbxHeader.getHeaderHash());
+            if(keePassFile.meta.headerHash != null){
+                // the database contains the hash of the headers
+                keePassFile.meta.headerHash.setContent(kdbxHeader.getHeaderHash());
+            }
 
             // encrypt the fields in the XML inner stream
             XmlOutputStreamFilter plainTextOutputStream = new XmlOutputStreamFilter(kdbxInnerStream,
@@ -267,6 +269,7 @@ public class SimpleDatabase extends AbstractDatabase<SimpleDatabase, SimpleGroup
             this.setDirty(false);
 
         } catch (Exception e) {
+            e.printStackTrace();
             throw new IllegalStateException(e);
         }
     }
